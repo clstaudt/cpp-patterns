@@ -57,7 +57,7 @@ class Ceasar : public Cipher
 class Encryption 
 {
     protected:
-        Cipher* imp; // Bridge
+        Cipher* imp = nullptr; // Bridge
     public:
 	    virtual std::string encrypt(const std::string&, unsigned int) = 0;
 	    virtual std::string decrypt(const std::string&, unsigned int) = 0;	

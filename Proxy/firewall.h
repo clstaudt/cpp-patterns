@@ -9,7 +9,7 @@
 class Firewall : public ConnectionInterface
 {
 	private:
-        NetworkConnection* realConnection;
+        NetworkConnection* realConnection = nullptr;
 	    int allowedPorts[2] = {80, 8080}; 
 	
         bool isPortAllowed(int port)

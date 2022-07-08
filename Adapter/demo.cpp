@@ -31,7 +31,7 @@ class FahrenheitThermo
 class ThermoAdapter : public ThermoInterface
 {
     private:
-        FahrenheitThermo* thermo;
+        FahrenheitThermo* thermo = nullptr;
     public:
         ThermoAdapter() 
         {
