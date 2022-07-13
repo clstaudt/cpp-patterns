@@ -1,4 +1,5 @@
 #include <string>
+#include <stdexcept>
 
 class Money
  {
@@ -31,7 +32,22 @@ class Money
 		
 		Money* add(Money& m) 
 		{
-			return new Money(amount() + m.amount(), getCurrency());
+			if(getCurrency() == m.getCurrency())
+				return new Money(amount() + m.amount(), getCurrency());
+			else
+				return nullptr;
+		}
+
+		// name is just different for demonstration purposes
+		Money* add_with_ex(Money& m) 
+		{
+			if(getCurrency() == m.getCurrency())
+				return new Money(amount() + m.amount(), getCurrency());
+			else
+			{
+				throw std::invalid_argument("Currencies do not match.");
+			}
+			return nullptr;
 		}
 
 };

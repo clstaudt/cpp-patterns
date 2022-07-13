@@ -13,3 +13,4 @@ BOOST_AUTO_TEST_CASE(simple_add)
 	
     BOOST_CHECK(expected == (*observed));
 }
+
