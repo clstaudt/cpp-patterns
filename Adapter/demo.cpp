@@ -28,29 +28,6 @@ class FahrenheitThermo
     
 };
 
-class ThermoAdapter : public ThermoInterface
-{
-    private:
-        FahrenheitThermo* thermo = nullptr;
-    public:
-        ThermoAdapter() 
-        {
-                thermo = new FahrenheitThermo();
-        }
-        ~ThermoAdapter() 
-        {
-                if(thermo != nullptr)
-                {
-                    delete thermo;
-                    thermo = nullptr;
-                }
-        }
-        double getTempC() override
-        {
-                return (thermo->getFahrenheitTemperature()-32.0) * (5.0/9.0);
-        }
-};
-
 int main()
 {
     ThermoInterface* ti = new ThermoAdapter();
