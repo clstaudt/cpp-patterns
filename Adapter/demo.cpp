@@ -30,6 +30,7 @@ class FahrenheitThermo
 
 int main()
 {
+    // TODO: Implement ThermoAdapter
     ThermoInterface* ti = new ThermoAdapter();
     std::cout << ti->getTempC() << std::endl;
 
