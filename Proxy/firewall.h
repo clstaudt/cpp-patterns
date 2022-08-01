@@ -21,10 +21,15 @@ class Firewall : public ConnectionInterface
             return allowed;
         }
     public:
+        // Firewall(NetworkConnection* conn) : realConnection(conn) {} // apporach 1, good for testing
+
         void open(std::string address, int port) override
         {
             if(realConnection != nullptr)
-                return;
+            {
+                 // better: only when you need it, substitute
+                realConnection = new NetworkConnection();
+            }
 
             if(isPortAllowed(port))
                 realConnection->open(address, port);
