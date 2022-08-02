@@ -4,6 +4,8 @@
 #include "Event.h"
 #include "MusicPlayer.h"
 
+class MusicPlayer;
+
 class State
 {
 	public:
