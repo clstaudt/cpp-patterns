@@ -16,6 +16,7 @@
 #include "../toppings/clams/FreshClams.h"
 #include "../toppings/dough/Dough.h"
 #include "../toppings/dough/ThinCrustDough.h"
+#include "../toppings/meat/Weisswurst.h"
 #include "PizzaToppingFactory.h"
 #include <vector>
 
@@ -37,6 +38,7 @@ namespace abstractfactorytoppingfactory
 	using FreshClams = abstractfactorytoppings::clams::FreshClams;
 	using Dough = abstractfactorytoppings::dough::Dough;
 	using ThinCrustDough = abstractfactorytoppings::dough::ThinCrustDough;
+	using Weisswurst = abstractfactorytoppings::meat::Weisswurst;
 
 	class NYPizzaToppingFactory : public PizzaToppingFactory
 	{
@@ -77,6 +79,11 @@ namespace abstractfactorytoppingfactory
 		Clams* createClam() override
 		{
 			return new FreshClams();
+		}
+
+		Meat* createMeat() override
+		{
+			return new Weisswurst();
 		}
 
 	};

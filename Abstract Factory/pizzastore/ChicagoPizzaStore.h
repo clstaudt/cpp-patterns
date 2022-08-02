@@ -6,6 +6,7 @@
 #include "../pizza/PepperoniPizza.h"
 #include "../pizza/Pizza.h"
 #include "../pizza/VeggiePizza.h"
+#include "../pizza/MeatPizza.h"
 #include "../toppingfactory/ChicagoPizzaToppingFactory.h"
 #include "../toppingfactory/PizzaToppingFactory.h"
 #include "PizzaStore.h"
@@ -19,6 +20,7 @@ namespace abstractfactorypizzastore
 	using PepperoniPizza = abstractfactorypizza::PepperoniPizza;
 	using Pizza = abstractfactorypizza::Pizza;
 	using VeggiePizza = abstractfactorypizza::VeggiePizza;
+	using MeatPizza = abstractfactorypizza::MeatPizza;
 	using ChicagoPizzaToppingFactory = abstractfactorytoppingfactory::ChicagoPizzaToppingFactory;
 	using PizzaToppingFactory = abstractfactorytoppingfactory::PizzaToppingFactory;
 
@@ -70,6 +72,11 @@ namespace abstractfactorypizzastore
 				pizza = new PepperoniPizza(ingredientFactory);
 				pizza->setName("Chicago Style Pepperoni Pizza");
 
+			}
+			else if (item == "meat")
+			{
+				pizza = new MeatPizza(ingredientFactory);
+				pizza->setName("Chicago Style Meat Pizza");
 			}
 
 			return pizza;

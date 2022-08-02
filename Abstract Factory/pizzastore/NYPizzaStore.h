@@ -6,6 +6,7 @@
 #include "../pizza/PepperoniPizza.h"
 #include "../pizza/Pizza.h"
 #include "../pizza/VeggiePizza.h"
+#include "../pizza/MeatPizza.h"
 #include "../toppingfactory/NYPizzaToppingFactory.h"
 #include "../toppingfactory/PizzaToppingFactory.h"
 #include "PizzaStore.h"
@@ -19,8 +20,10 @@ namespace abstractfactorypizzastore
 	using PepperoniPizza = abstractfactorypizza::PepperoniPizza;
 	using Pizza = abstractfactorypizza::Pizza;
 	using VeggiePizza = abstractfactorypizza::VeggiePizza;
+	using MeatPizza = abstractfactorypizza::MeatPizza;
 	using NYPizzaToppingFactory = abstractfactorytoppingfactory::NYPizzaToppingFactory;
 	using PizzaToppingFactory = abstractfactorytoppingfactory::PizzaToppingFactory;
+	
 
 	//TODO: Create meat pizza and name it using name of the Store
 	class NYPizzaStore : public PizzaStore
@@ -70,6 +73,18 @@ namespace abstractfactorypizzastore
 				pizza = new PepperoniPizza(ingredientFactory);
 				pizza->setName("New York Style Pepperoni Pizza");
 
+			}
+			else if (item == "pepperoni")
+			{
+
+				pizza = new PepperoniPizza(ingredientFactory);
+				pizza->setName("New York Style Pepperoni Pizza");
+
+			}
+			else if (item == "meat")
+			{
+				pizza = new MeatPizza(ingredientFactory);
+				pizza->setName("New York Style Meat Pizza");
 			}
 			return pizza;
 		}

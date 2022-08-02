@@ -6,7 +6,8 @@
 namespace abstractfactorytoppings::meat
 {
 
-	//TODO: Create Ham, Chicken or Weisswurst classes
+	//TODO: Create a Ham, Chicken and a Weisswurst class 
+	// in the same folder
 	class Meat
 	{
 	public:

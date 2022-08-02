@@ -7,6 +7,7 @@
 #include "../toppings/cheese/Cheese.h"
 #include "../toppings/clams/Clams.h"
 #include "../toppings/dough/Dough.h"
+#include "../toppings/meat/Meat.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -21,6 +22,7 @@ namespace abstractfactorypizza
 	using Cheese = abstractfactorytoppings::cheese::Cheese;
 	using Clams = abstractfactorytoppings::clams::Clams;
 	using Dough = abstractfactorytoppings::dough::Dough;
+	using Meat = abstractfactorytoppings::meat::Meat;
 
 	//TODO: Extend class Pizza with Meat Pizza
 	//TODO: Add the required attribute to a class
@@ -37,6 +39,7 @@ namespace abstractfactorypizza
 		Cheese* cheese;
 		Pepperoni* pepperoni;
 		Clams* clam;
+		Meat* meat;
 
 		virtual void prepare() = 0;
 
@@ -47,6 +50,7 @@ namespace abstractfactorypizza
 			delete cheese;
 			delete pepperoni;
 			delete clam;
+			delete meat;
 		}
 
 		virtual void bake()
@@ -113,6 +117,11 @@ namespace abstractfactorypizza
 			if (pepperoni != nullptr)
 			{
 				result->append(pepperoni);
+				result->append("\n");
+			}
+			if(meat != nullptr)
+			{
+				result->append(meat);
 				result->append("\n");
 			}
 
