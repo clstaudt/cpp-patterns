@@ -99,11 +99,12 @@ void Rider::update(Subject* subject)
     std::cout << "Rider state updated." << std::endl;
 }
 
+enum STATE { IDLE=0, BUSY=1, FREE=10};
 
 int main()
 {
-    Rider rider1(1);
-    Rider rider2(2);
+    Rider rider1(STATE::IDLE);
+    Rider rider2(STATE::IDLE);
 
     std::cout << "Rider 1 state: " << rider1.getState() << std::endl;
     std::cout << "Rider 2 state: " << rider2.getState() << std::endl;
@@ -113,10 +114,13 @@ int main()
     vehicle->attach(&rider1);
     vehicle->attach(&rider2);
 
-    vehicle->setState( 10 );
+    vehicle->setState(STATE::FREE);
     vehicle->notify();
 
     std::cout << "Rider 1 state: " << rider1.getState() << std::endl;
+
+  
+
     std::cout << "Rider 2 state: " << rider2.getState() << std::endl;
 
     if(vehicle != nullptr)
