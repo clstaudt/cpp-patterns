@@ -5,7 +5,7 @@ class ThermoInterface
 {
     public:
         virtual double getTempC() = 0;
-        virtual ~ThermoInterface();
+        virtual ~ThermoInterface() {}; // important to avoid memory leak by ThermoAdapter
 };
 
 // Lecacy component
@@ -32,23 +32,23 @@ class FahrenheitThermo
 class ThermoAdapter : public ThermoInterface
 {
     private:
-        FahrenheitThermo* thermo = nullptr;
+        FahrenheitThermo* thermo;
     public:
         ThermoAdapter() 
         {
-                thermo = new FahrenheitThermo();
+            thermo = new FahrenheitThermo();
         }
         ~ThermoAdapter() 
         {
-                if(thermo != nullptr)
-                {
-                    delete thermo;
-                    thermo = nullptr;
-                }
+			if(thermo != nullptr)
+			{
+				delete thermo;
+				thermo = nullptr;
+			}
         }
         double getTempC() override
         {
-                return (thermo->getFahrenheitTemperature()-32.0) * (5.0/9.0);
+            return (thermo->getFahrenheitTemperature()-32.0) * (5.0/9.0);
         }
 };
 
