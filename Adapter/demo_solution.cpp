@@ -5,6 +5,7 @@ class ThermoInterface
 {
     public:
         virtual double getTempC() = 0;
+        virtual ~ThermoInterface();
 };
 
 // Lecacy component
