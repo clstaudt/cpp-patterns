@@ -73,7 +73,7 @@ class Director
         }
 };
 
-//Concrete Builder for Jeep SUV cars 
+//Concrete Builder for SUV cars 
 class SUVBuilder : public Builder
 {
     public:
@@ -99,7 +99,7 @@ class SUVBuilder : public Builder
         }
 };
 
-//Concrete builder for Nissan family cars 
+//Concrete builder for city cars 
 class CityCarBuilder : public Builder
 {
     public:
@@ -128,10 +128,11 @@ class CityCarBuilder : public Builder
 
 int main()
 {
-    Car* car1 = nullptr; // Final product
+	// Final products
+    Car* car1 = nullptr; 
 	Car* car2 = nullptr; 
 
-    //A director who controls the process 
+    //Director that controls the process 
     Director director;
 
     //Concrete builders 
@@ -140,7 +141,7 @@ int main()
 
     //Build an SUV 
     std::cout << "SUV" << std::endl;
-    director.setBuilder(&suvBuilder); // using SUV instance
+    director.setBuilder(&suvBuilder); // using SUVBuilder instance
     car1 = director.getCar();
     car1->printSpecifications();
 
@@ -148,7 +149,7 @@ int main()
 
     //Build a City Car 
     std::cout << "City Car" << std::endl;
-    director.setBuilder(&ccBuilder); // using NissanBuilder instance
+    director.setBuilder(&ccBuilder); // using CityCarBuilder instance
     car2 = director.getCar();
     car2->printSpecifications();
 	
