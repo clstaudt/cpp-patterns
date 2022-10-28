@@ -35,8 +35,5 @@ int main()
     std::cout << ti->getTempC() << std::endl;
 
     if(ti != nullptr)
-    {
-        delete ti;
-        ti = nullptr;
-    }
+       delete ti;
 }
