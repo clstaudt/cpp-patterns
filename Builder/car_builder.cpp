@@ -91,7 +91,8 @@ class Builder
 //Director is responsible for the whole process 
 class Director
 {
-    Builder* builder = nullptr;
+    private:
+        Builder* builder = nullptr;
 
     public:
         void setBuilder(Builder* newBuilder)
