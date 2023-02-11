@@ -2,62 +2,83 @@
 #include <vector>
 #include <memory>
 
-class Subject;
-
-class Observer {
- public:
-  virtual void Update(std::shared_ptr<Subject> subject) = 0;
+class Observer
+{
+public:
+  virtual void Update(const std::shared_ptr<void>& subject) = 0;
 };
 
-class Subject {
- public:
-  void Attach(std::shared_ptr<Observer> observer) {
+class Subject
+{
+public:
+  void Attach(const std::shared_ptr<Observer>& observer)
+  {
     observers_.push_back(observer);
   }
 
-  void Detach(std::shared_ptr<Observer> observer) {
-    observers_.erase(
-        std::remove(observers_.begin(), observers_.end(), observer),
-        observers_.end());
+  void Detach(const std::shared_ptr<Observer>& observer)
+  {
+    auto it = std::find(observers_.begin(), observers_.end(), observer);
+    if (it != observers_.end())
+      observers_.erase(it);
   }
 
-  void Notify() {
-    for (auto observer : observers_) {
+  void Notify()
+  {
+    for (auto observer : observers_)
       observer->Update(shared_from_this());
-    }
   }
 
- private:
+private:
   std::vector<std::shared_ptr<Observer>> observers_;
 };
 
-class ConcreteSubject : public Subject {
- public:
-  int state() const { return state_; }
-  void set_state(int state) {
+class ConcreteSubject : public Subject
+{
+public:
+  void SetState(int state)
+  {
     state_ = state;
     Notify();
   }
 
- private:
+  int GetState() const
+  {
+    return state_;
+  }
+
+private:
   int state_;
 };
 
-class ConcreteObserver : public Observer {
- public:
-  ConcreteObserver(std::shared_ptr<ConcreteSubject> subject)
-      : subject_(subject) {
+class ConcreteObserver : public Observer, public std::enable_shared_from_this<ConcreteObserver>
+{
+public:
+  ConcreteObserver(const std::shared_ptr<ConcreteSubject>& subject)
+    : subject_(subject)
+  {
     subject_->Attach(shared_from_this());
   }
 
-  void Update(std::shared_ptr<Subject> subject) override {
+  void Update(const std::shared_ptr<void>& subject) override
+  {
     auto concrete_subject = std::dynamic_pointer_cast<ConcreteSubject>(subject);
-    if (concrete_subject) {
-      std::cout << "ConcreteObserver: Subject's state is "
-                << concrete_subject->state() << std::endl;
+    if (concrete_subject)
+    {
+      std::cout << "ConcreteObserver: Subject state is now " << concrete_subject->GetState() << std::endl;
     }
   }
 
- private:
-  std::shared_ptr<ConcreteSubject> subject_;
+private:
+  std::weak_ptr<ConcreteSubject> subject_;
 };
+
+int main()
+{
+  auto subject = std::make_shared<ConcreteSubject>();
+  auto observer = std::make_shared<ConcreteObserver>(subject);
+
+  subject->SetState(42);
+
+  return 0;
+}
