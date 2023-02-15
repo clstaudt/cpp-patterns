@@ -9,6 +9,7 @@ class MusicPlayer;
 class State
 {
 	public:
+		virtual ~State() {}
 		virtual void entry() = 0;
 		virtual void exit() = 0;
 		virtual void handle(MusicPlayer*, Event) = 0;
