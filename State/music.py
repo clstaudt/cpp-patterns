@@ -7,32 +7,35 @@ import enum
 import click
 from termcolor import colored
 
+
 class Event(enum.StrEnum):
-    """ Event enumeration. """
+    """Event enumeration."""
+
     OnOffPressed = "on / off"
     PlayPausePressed = "play / pause"
 
 
 class State(ABC):
-    """ Abstract state class for a state of the music player. """
+    """Abstract state class for a state of the music player."""
 
     @abstractmethod
     def entry(self):
-        """ Executed when entering the state. """
+        """Executed when entering the state."""
         raise NotImplementedError("entry() must be implemented in a concrete state")
 
     @abstractmethod
     def exit(self):
-        """ Executed when exiting the state. """
+        """Executed when exiting the state."""
         raise NotImplementedError("exit() must be implemented in a concrete state")
 
     @abstractmethod
     def handle(self, event: Event):
-        """ Executed when the state is active. """
+        """Executed when the state is active."""
         raise NotImplementedError("handle() must be implemented in a concrete state")
 
+
 class Inactive(State):
-    """ Concrete state class for the 'inactive' state. """
+    """Concrete state class for the 'inactive' state."""
 
     def __init__(self, player):
         self.player = player
@@ -50,10 +53,11 @@ class Inactive(State):
                 print("OnOffPressed event in 'inactive' state")
                 self.player.set_state(On(self.player))
             case _:
-                pass       
+                pass
+
 
 class On(State):
-    """ Concrete state class for the 'on' state. """
+    """Concrete state class for the 'on' state."""
 
     def __init__(self, player: "MusicPlayer"):
         self.player = player
@@ -74,8 +78,9 @@ class On(State):
             case _:
                 pass
 
+
 class Playing(State):
-    """ Concrete state class for the 'playing' state. """
+    """Concrete state class for the 'playing' state."""
 
     def __init__(self, player: "MusicPlayer"):
         self.player = player
@@ -94,8 +99,9 @@ class Playing(State):
             case _:
                 pass
 
+
 class Paused(State):
-    """ Concrete state class for the 'paused' state. """
+    """Concrete state class for the 'paused' state."""
 
     def __init__(self, player: "MusicPlayer"):
         self.player = player
@@ -118,58 +124,63 @@ class Paused(State):
 
 
 class Context(ABC):
-    """ Abstract base class for the Context class of the State pattern. """
+    """Abstract base class for the Context class of the State pattern."""
 
-    
     def __init__(self, state: State):
         self.state = state
 
     def set_state(self, state: State):
-        """ Set the current state. """
+        """Set the current state."""
         self.state.exit()
         self.state = state
         self.state.entry()
 
     def handle(self, event: Event):
-        """ Handle an event. """
+        """Handle an event."""
         self.state.handle(event)
 
 
 class MusicPlayer(Context):
-    """ Music player class. """
+    """Music player class."""
 
     def __init__(self):
         super().__init__(Inactive(self))
         self._led_on = False
 
     def turn_led_on(self):
-        """ Turn the LED on. """
+        """Turn the LED on."""
         self._led_on = True
         print(colored("🌕 LED on", "green"))
 
     def turn_led_off(self):
-        """ Turn the LED off. """
+        """Turn the LED off."""
         self._led_on = False
         print(colored("🌑 LED off", "green"))
 
     def play_music(self):
-        """ Play music. """
+        """Play music."""
         print(colored("🔊 Music playing", "green"))
-    
+
     def pause_music(self):
-        """ Pause music. """
+        """Pause music."""
         print(colored("🔇 Music paused", "green"))
 
     # Create a function to display the options and prompt for input
     def display_menu(self):
-        click.echo('Press a button:\n')
+        click.echo("Press a button:\n")
         for i, option in enumerate(Event):
-            click.echo(f'{i + 1}. {option}')
+            click.echo(f"{i + 1}. {option}")
         click.echo()
-        return click.prompt('Press a button', type=int, default=1, show_default=False, prompt_suffix=': ')
+        return click.prompt(
+            "Press a button",
+            type=int,
+            default=1,
+            show_default=False,
+            prompt_suffix=": ",
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Create a MusicPlayer instance
     music_player = MusicPlayer()
     options = [option.name for option in Event]
@@ -180,7 +191,7 @@ if __name__ == '__main__':
         while True:
             option_number = music_player.display_menu()
             if option_number < 1 or option_number > len(options):
-                click.echo(f'Invalid option number: {option_number}\n')
+                click.echo(f"Invalid option number: {option_number}\n")
             else:
                 selected_option = options[option_number - 1]
                 # get the event for the selected option and handle it
@@ -191,6 +202,3 @@ if __name__ == '__main__':
 
     # run the prompt loop
     menu_prompt()
-
-
-
