@@ -145,20 +145,20 @@ class MusicPlayer(Context):
     def turn_led_on(self):
         """ Turn the LED on. """
         self._led_on = True
-        print("🌕 LED on")
+        print(colored("🌕 LED on", "green"))
 
     def turn_led_off(self):
         """ Turn the LED off. """
         self._led_on = False
-        print("🌑 LED off")
+        print(colored("🌑 LED off", "green"))
 
     def play_music(self):
         """ Play music. """
-        print("🔊 Music playing")
+        print(colored("🔊 Music playing", "green"))
     
     def pause_music(self):
         """ Pause music. """
-        print("🔇 Music paused")
+        print(colored("🔇 Music paused", "green"))
 
     # Create a function to display the options and prompt for input
     def display_menu(self):
