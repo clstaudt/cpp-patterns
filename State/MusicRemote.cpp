@@ -14,6 +14,6 @@ int main()
 		player->handle(event);
 	}
 
-	if(player != nullptr)
+	if (player != nullptr)
 		delete player;
 }
